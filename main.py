@@ -178,7 +178,7 @@ def print_tours_menu():
         1: "All",                                       #Mongo
         2: "Date Range (Start and End date)",           #Mongo
         3: "Price per person",                          #Mongo
-        4: "Activities",                                #Mongo
+        4: "Locations",                                #Mongo
         5: "Similar tours to (needs a name)",           #Dgraph
         6: "Contracted by friends",                     #Dgraph
     }
