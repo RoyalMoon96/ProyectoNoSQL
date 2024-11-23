@@ -3,6 +3,7 @@ from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List
 from datetime import datetime
+from pymongo import TEXT
 
 from mongomodel import Tour, User, ToursUpdate, UserUpdate
 
@@ -45,16 +46,19 @@ def list_users(request: Request, limit: int = 0, skip: int = 0):
     return users
 
 @router.get("/T", response_description="Get all tours", response_model=List[Tour])
-def list_tours(request: Request, start_date_From: str=None, start_date_To: str=None, min_price: float=None, max_price: float=None):
+def list_tours(request: Request, start_date_From: str=None, start_date_To: str=None, min_price: float=None, max_price: float=None, location: str=None):
     request.app.database["tours"].create_index([("start_date", 1)])
     request.app.database["tours"].create_index([("price_per_person", 1)])
+    request.app.database["tours"].create_index([("location", TEXT)])
     req={}
     if start_date_From!=None and start_date_To!=None:
         start_date_From=datetime.strptime(start_date_From, "%Y-%m-%d %H:%M:%S.%f")
         start_date_To=datetime.strptime(start_date_To, "%Y-%m-%d %H:%M:%S.%f")
-        req['start_date']={"$gte": start_date_From,"$lt": start_date_To}
+        req['start_date']={"$gte": start_date_From,"$lte": start_date_To}
     elif min_price!=None and max_price!=None:
         req['price_per_person']={"$gte": min_price,"$lte": max_price}
+    elif location!=None:
+            req['$text']={"$search": location}
 
     tours = list(request.app.database["tours"].find(req))
     return tours

@@ -114,6 +114,21 @@ def get_tours_by_price_range(min_price: float=0, max_price: float=10000):
             print_objects(tour)
     else:
         print(f"Error: {response}")
+
+def get_tours_by_location(location: str=None):
+    suffix = "/tours/T"
+    endpoint = TOURS_API_URL + suffix
+    params = {
+        "location": location
+    }
+    response = requests.get(endpoint, params=params)
+    if response.ok:
+        json_resp = response.json()
+        for tour in json_resp:
+            print_objects(tour)
+    else:
+        print(f"Error: {response}")
+
 #--------------------------------------------------------------------------------------
 """
 #--------------------------------------------------------------------------------------
@@ -232,9 +247,9 @@ def main():
                 get_tours_by_price_range(min_price, max_price)                  #Mongo
             #
             if tour_option == 4:
-                print("Available activities: hiking, swimming, sightseeing, cultural, adventure")
-                activity = input("Enter activity type: ").lower()
-#                get_tours_by_activity(activity)                                 #Mongo
+                print('Some available locations: "Paris", "New York", "Tokyo", "Sydney", "Rome", "London", "Barcelona"...')
+                location = input("Enter location name: ").lower()
+                get_tours_by_location(location)                                 #Mongo
             #
             if tour_option == 5:
                 tour_name = input("Enter tour name to find similar tours: ")
