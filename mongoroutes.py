@@ -63,7 +63,7 @@ def list_tours(request: Request, start_date_From: str=None, start_date_To: str=N
     tours = list(request.app.database["tours"].find(req))
     return tours
 
-@router.get("/{id}", response_description="Get a single tour by id", response_model=Tour)
+@router.get("/T/{id}", response_description="Get a single tour by id", response_model=Tour)
 def find_tour(id: str, request: Request):
     if (tour := request.app.database["tours"].find_one({"_id": id})) is not None:
         return tour
@@ -71,7 +71,7 @@ def find_tour(id: str, request: Request):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Tour with ID {id} not found")
 
 
-@router.put("/{id}", response_description="Update a tour by id", response_model=Tour)
+@router.put("/T/{id}", response_description="Update a tour by id", response_model=Tour)
 def update_tour(id: str, request: Request, tour: ToursUpdate = Body(...)):
     new_data = tour.dict(exclude_unset=True)
     request.app.database["tours"].update_one({"_id": id}, {"$set": new_data})
@@ -79,7 +79,7 @@ def update_tour(id: str, request: Request, tour: ToursUpdate = Body(...)):
     return updated_tour
 
 
-@router.delete("/{id}", response_description="Delete a tour")
+@router.delete("/T/{id}", response_description="Delete a tour")
 def delete_tour(id: str, request: Request):
     request.app.database["tours"].delete_one({"_id": id})
     return Response(status_code=status.HTTP_204_NO_CONTENT)

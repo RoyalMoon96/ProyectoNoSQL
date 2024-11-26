@@ -1,13 +1,13 @@
 
-"""
 #--------------------------------------------------------------------------------------
 #------------------------------------ Cassandra ---------------------------------------
 #--------------------------------------------------------------------------------------
-import random
-import uuid
-import datetime
-import time_uuid
 
+
+import datetime
+import pandas as pd
+import logging
+import os
 from cassandra.cluster import Cluster
 
 import modelCasandra
@@ -15,14 +15,55 @@ import modelCasandra
 # Set logger
 log = logging.getLogger()
 log.setLevel('INFO')
-handler = logging.FileHandler('investments.log')
+handler = logging.FileHandler('tours.log')
 handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s"))
 log.addHandler(handler)
 
 # Read env vars releated to Cassandra App
 CLUSTER_IPS = os.getenv('CASSANDRA_CLUSTER_IPS', 'localhost')
-KEYSPACE = os.getenv('CASSANDRA_KEYSPACE', 'investments')
-REPLICATION_FACTOR = os.getenv('CASSANDRA_REPLICATION_FACTOR', '1')"""
+KEYSPACE = os.getenv('CASSANDRA_KEYSPACE', 'tours')
+REPLICATION_FACTOR = os.getenv('CASSANDRA_REPLICATION_FACTOR', '1')
+
+def insert_data_cassandra(session):
+    log.info("Loading data from CSV file")
+    try:
+        df = pd.read_csv('tours_users_df.csv')
+        
+        # Convert date columns to datetime objects
+        df["start_date"] = pd.to_datetime(df["start_date"])
+        df["end_date"] = pd.to_datetime(df["end_date"])
+        
+        insert_users_history = session.prepare("""
+            INSERT INTO users_history 
+            (tour_name, location, duration_days, price_per_person, start_date, 
+             max_participants, end_date, username, age, state, real_name, email)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """)
+        
+        for _, row in df.iterrows():
+            # Insert into users_history
+            session.execute(insert_users_history, (
+                row['tour_name'],
+                row['location'],
+                int(row['duration_days']),
+                float(row['price_per_person']),
+                row['start_date'],  # Now a datetime object
+                int(row['max_participants']),
+                row['end_date'],    # Now a datetime object
+                row['username'],
+                int(row['age']),
+                row['state'],
+                row['real_name'],
+                row['email']
+            ))
+            
+        log.info("Data loaded successfully")
+        print("Data loaded successfully!")
+        
+    except Exception as e:
+        log.error(f"Error loading data: {str(e)}")
+        print(f"Error loading data: {str(e)}")
+
 #--------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------
@@ -30,20 +71,10 @@ REPLICATION_FACTOR = os.getenv('CASSANDRA_REPLICATION_FACTOR', '1')"""
 #--------------------------------------------------------------------------------------
 #!/usr/bin/env python3
 import argparse
-import logging
-import os
 import requests
 import csv
 from datetime import datetime
 
-
-
-# Set logger
-log = logging.getLogger()
-log.setLevel('INFO')
-handler = logging.FileHandler('tours.log')
-handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s"))
-log.addHandler(handler)
 
 # Read env vars related to API connection
 MONGO_BASE_URL = "http://localhost:8000"
@@ -186,7 +217,7 @@ def print_tours_menu():
         print('    ', key, '--', thm_options[key])
 
 def main():
-    """
+    
     log.info("Connecting to Cluster")
     cluster = Cluster(CLUSTER_IPS.split(','))
     session = cluster.connect()
@@ -195,8 +226,7 @@ def main():
     session.set_keyspace(KEYSPACE)
 
     modelCasandra.create_schema(session)
-
-    username = set_username()
+    """
     #Dgraph
         # Init Client Stub and Dgraph Client
     client_stub = create_client_stub()
@@ -208,12 +238,14 @@ def main():
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
     """
+    username = set_username()
 
     while True:
         print_menu()
         option = int(input('Enter your choice: '))
         if option == 0:
             insert_data_mongo()
+            insert_data_cassandra(session)
         if option == 1:
             opt_limit="n"
             opt_limit = input("limit y/n: ").lower()
@@ -227,8 +259,8 @@ def main():
             if opt_skip == "y" or opt_skip =="yes":
                 skip = int(input("skip value: "))
             user_info_mongo(limit, skip)                                                 #Mongo
-#        if option == 2:
-#            mongomodel.get_user_history(session, username)                   #Cassandra
+        if option == 2:
+            modelCasandra.get_user_history(session, username)                   #Cassandra
         if option == 3:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
