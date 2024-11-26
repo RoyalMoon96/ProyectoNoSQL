@@ -1,4 +1,5 @@
 
+
 #--------------------------------------------------------------------------------------
 #------------------------------------ Cassandra ---------------------------------------
 #--------------------------------------------------------------------------------------
@@ -161,31 +162,33 @@ def get_tours_by_location(location: str=None):
         print(f"Error: {response}")
 
 #--------------------------------------------------------------------------------------
-"""
+
+#--------------------------------------------------------------------------------------
+
 #--------------------------------------------------------------------------------------
 #-------------------------------------- Dgraph ----------------------------------------
 #--------------------------------------------------------------------------------------
 #!/usr/bin/env python3
+
 import os
-
 import pydgraph
+import dgraphModel
+#import set_schema, insert_data_dgraph, get_similar_tours, get_friends_tours, get_follows
+#from modelDgraph import set_schema, insert_data_dgraph, get_similar_tours, get_friends_tours, get_follows
 
-import mongomodel as mongomodel
-
+# Dgraph connection details
 DGRAPH_URI = os.getenv('DGRAPH_URI', 'localhost:9080')
 
 def create_client_stub():
     return pydgraph.DgraphClientStub(DGRAPH_URI)
 
-
 def create_client(client_stub):
     return pydgraph.DgraphClient(client_stub)
 
-
 def close_client_stub(client_stub):
-    client_stub.close()"""
-#--------------------------------------------------------------------------------------
+    client_stub.close()
 
+#--------------------------------------------------------------------------------------
 def set_username():
     username = input('**** Username to use app: ')
     log.info(f"Username set to {username}")
@@ -209,12 +212,14 @@ def print_tours_menu():
         1: "All",                                       #Mongo
         2: "Date Range (Start and End date)",           #Mongo
         3: "Price per person",                          #Mongo
-        4: "Locations",                                #Mongo
+        4: "Locations",                                 #Mongo
         5: "Similar tours to (needs a name)",           #Dgraph
         6: "Contracted by friends",                     #Dgraph
+        7: "Followers and Followings of friends",       #Dgraph
     }
     for key in thm_options.keys():
         print('    ', key, '--', thm_options[key])
+
 
 def main():
     
@@ -226,26 +231,36 @@ def main():
     session.set_keyspace(KEYSPACE)
 
     modelCasandra.create_schema(session)
-    """
+
+    
     #Dgraph
         # Init Client Stub and Dgraph Client
+
+    log.info("Connecting to Dgraph")
     client_stub = create_client_stub()
     client = create_client(client_stub)
+    log.info("Setting schema in Dgraph")
+    set_schema(client)
 
-    # Create schema
     mongomodel.set_schema(client)
 
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
-    """
+
     username = set_username()
+
+    
 
     while True:
         print_menu()
         option = int(input('Enter your choice: '))
         if option == 0:
-            insert_data_mongo()
-            insert_data_cassandra(session)
+            try:
+                insert_data_mongo()
+                insert_data_dgraph(client, user_csv, tours_csv)  # Dgraph
+                print("Data inserted successfully!")
+            except Exception as e:
+                print(f"Error inserting data: {e}")  # Dgraph
         if option == 1:
             opt_limit="n"
             opt_limit = input("limit y/n: ").lower()
@@ -259,8 +274,8 @@ def main():
             if opt_skip == "y" or opt_skip =="yes":
                 skip = int(input("skip value: "))
             user_info_mongo(limit, skip)                                                 #Mongo
-        if option == 2:
-            modelCasandra.get_user_history(session, username)                   #Cassandra
+#        if option == 2:
+#            mongomodel.get_user_history(session, username)                   #Cassandra
         if option == 3:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
@@ -285,10 +300,13 @@ def main():
             #
             if tour_option == 5:
                 tour_name = input("Enter tour name to find similar tours: ")
-#                get_similar_tours(client, tour_name)                            #Dgraph
-            #
-#            elif tour_option == 6:
-#                get_tours_hired_by_friends(client, username)               #Dgraph
+                get_similar_tours(client, tour_name)                            #Dgraph
+            
+            elif tour_option == 6:
+                get_friends_tours(client, username)       
+                
+            if tour_option == 7:
+                get_follows(client, username)                                   #Dgraph
 
         if option == 4:
             username = set_username()
@@ -297,8 +315,11 @@ def main():
             exit(0)
         else:
             print("Invalid option. Please try again.")
-
+        
 
 
 if __name__ == '__main__':
     main()
+
+
+
