@@ -70,7 +70,7 @@ def load_data(client):
                     'age': int(row['age']),
                     'state': row['state']
                 })
-        print(user_data)
+        #print(user_data)
 
         # Load tours from CSV
         tour_data = []
@@ -88,7 +88,7 @@ def load_data(client):
                     'end_date':datetime.strptime(row['end_date'], "%Y-%m-%d %H:%M:%S.%f").isoformat(),
                     'max_participants': int(row['max_participants']),
                 })
-        print(tour_data)
+        #print(tour_data)
 
 
         # Crear relaciones aleatorias entre usuarios y tours

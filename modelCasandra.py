@@ -26,7 +26,7 @@ CREATE_TABLE_USERS_HISTORY = """
         state TEXT,
         real_name TEXT,
         email TEXT,
-        PRIMARY KEY ((username), start_date, tour_name)
+        PRIMARY KEY ((username), start_date)
     )
 """
 
