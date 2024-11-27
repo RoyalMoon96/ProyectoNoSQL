@@ -1,5 +1,4 @@
 
-
 #--------------------------------------------------------------------------------------
 #------------------------------------ Cassandra ---------------------------------------
 #--------------------------------------------------------------------------------------
@@ -172,7 +171,7 @@ def get_tours_by_location(location: str=None):
 
 import os
 import pydgraph
-import dgraphModel
+import modelDgraph
 #import set_schema, insert_data_dgraph, get_similar_tours, get_friends_tours, get_follows
 #from modelDgraph import set_schema, insert_data_dgraph, get_similar_tours, get_friends_tours, get_follows
 
@@ -197,7 +196,7 @@ def set_username():
 def print_menu():
     mm_options = {
         0: "Insert Data",
-        1: "Show user info",        #Mongo
+        1: "Show users ",        #Mongo
         2: "Show tours history",    #Cassandra
         3: "Show tours",            #Mongo, Dgraph
         4: "Change username",
@@ -240,9 +239,7 @@ def main():
     client_stub = create_client_stub()
     client = create_client(client_stub)
     log.info("Setting schema in Dgraph")
-    set_schema(client)
-
-    mongomodel.set_schema(client)
+    modelDgraph.set_schema(client)
 
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
@@ -257,11 +254,12 @@ def main():
         if option == 0:
             try:
                 insert_data_mongo()
-                insert_data_dgraph(client, user_csv, tours_csv)  # Dgraph
+                insert_data_cassandra(session)
+                modelDgraph.load_data(client)  # Dgraph
                 print("Data inserted successfully!")
             except Exception as e:
                 print(f"Error inserting data: {e}")  # Dgraph
-        if option == 1:
+        elif option == 1:
             opt_limit="n"
             opt_limit = input("limit y/n: ").lower()
             limit=0
@@ -274,9 +272,9 @@ def main():
             if opt_skip == "y" or opt_skip =="yes":
                 skip = int(input("skip value: "))
             user_info_mongo(limit, skip)                                                 #Mongo
-#        if option == 2:
-#            mongomodel.get_user_history(session, username)                   #Cassandra
-        if option == 3:
+        elif option == 2:
+            modelCasandra.get_user_history(session, username)                   #Cassandra
+        elif option == 3:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
             if tour_option == 1:
@@ -300,17 +298,17 @@ def main():
             #
             if tour_option == 5:
                 tour_name = input("Enter tour name to find similar tours: ")
-                get_similar_tours(client, tour_name)                            #Dgraph
+                modelDgraph.similar_tours(client, tour_name)                            #Dgraph
             
             elif tour_option == 6:
-                get_friends_tours(client, username)       
+                modelDgraph.friend_tours(client, username)       
                 
             if tour_option == 7:
-                get_follows(client, username)                                   #Dgraph
+                modelDgraph.follows(client, username)                                   #Dgraph
 
-        if option == 4:
+        elif option == 4:
             username = set_username()
-        if option == 5:
+        elif option == 5:
             print("Thank you for using our tour application!")
             exit(0)
         else:
