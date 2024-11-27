@@ -8,7 +8,6 @@ import pydgraph
 
 def set_schema(client):
     schema = """
-    
     type User {
         username
         real_name
@@ -17,9 +16,6 @@ def set_schema(client):
         state
         friends
         tours
-
-        
-
     }
 
     username: string @index(exact) .
@@ -40,9 +36,8 @@ def set_schema(client):
         max_participants
         participants
         similar_tours
-    
     }
-
+    
     tour_name: string @index(exact) . 
     location: geo .
     duration_days: int .
@@ -50,19 +45,17 @@ def set_schema(client):
     start_date: datetime .
     end_date: datetime .
     max_participants: int .
-    participants [uid] .
+    participants: [uid] .
     similar_tours: [uid] .
-}
-
 
     """
     return client.alter(pydgraph.Operation(schema=schema))
 
-def load_data(client, user_csv, tours_data):
+def load_data(client):
     txn = client.txn()
     try:
         # Load users from CSV
-        with open(user_csv, mode='r') as file:
+        with open("./users_data.csv", mode='r') as file:
             reader = csv.DictReader(file)
             user_data = []
             for row in reader:
@@ -77,7 +70,7 @@ def load_data(client, user_csv, tours_data):
                 })
 
         # Load tours from CSV
-        with open(tours_data, mode='r') as file:
+        with open("./tours_data.csv", mode='r') as file:
             reader = csv.DictReader(file)
             tour_data = []
             for row in reader:
