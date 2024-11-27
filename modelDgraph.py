@@ -89,6 +89,12 @@ def load_data(client):
                     'max_participants': int(row['max_participants']),
                 })
 
+        # Crear relaciones aleatorias entre usuarios y tours
+        for user in user_data:
+            # Seleccionar entre 1 y 3 tours al azar para cada usuario
+            assigned_tours = random.sample(tour_data, k=random.randint(1, 3))
+            user['tours'] = [{'uid': tour['uid']} for tour in assigned_tours]
+
         # Mutate data into Dgraph
         data = user_data + tour_data
         txn.mutate(set_obj=data)
@@ -157,7 +163,7 @@ def follows(client, username):
     variables = {'$username': username}
     res = client.txn(read_only=True).query(query, variables=variables)
     data = json.loads(res.json)
-    print(f"Followers and followings for {username}: {json.dumps(data, indent=2)}")
+    print(f"Follows of {username}: {json.dumps(data, indent=2)}")
 
 
 
