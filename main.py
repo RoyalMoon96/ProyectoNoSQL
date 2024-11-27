@@ -1,5 +1,4 @@
 
-
 #--------------------------------------------------------------------------------------
 #------------------------------------ Cassandra ---------------------------------------
 #--------------------------------------------------------------------------------------
@@ -197,7 +196,7 @@ def set_username():
 def print_menu():
     mm_options = {
         0: "Insert Data",
-        1: "Show user info",        #Mongo
+        1: "Show users ",        #Mongo
         2: "Show tours history",    #Cassandra
         3: "Show tours",            #Mongo, Dgraph
         4: "Change username",
@@ -253,13 +252,14 @@ def main():
         print_menu()
         option = int(input('Enter your choice: '))
         if option == 0:
-            insert_data_mongo()
             try:
+                insert_data_mongo()
+                insert_data_cassandra(session)
                 modelDgraph.load_data(client)  # Dgraph
                 print("Data inserted successfully!")
             except Exception as e:
                 print(f"Error inserting data: {e}")  # Dgraph
-        if option == 1:
+        elif option == 1:
             opt_limit="n"
             opt_limit = input("limit y/n: ").lower()
             limit=0
@@ -272,9 +272,9 @@ def main():
             if opt_skip == "y" or opt_skip =="yes":
                 skip = int(input("skip value: "))
             user_info_mongo(limit, skip)                                                 #Mongo
-#        if option == 2:
-#            get_user_history(session, username)                   #Cassandra
-        if option == 3:
+        elif option == 2:
+            modelCasandra.get_user_history(session, username)                   #Cassandra
+        elif option == 3:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
             if tour_option == 1:
@@ -306,9 +306,9 @@ def main():
             if tour_option == 7:
                 modelDgraph.follows(client, username)                                   #Dgraph
 
-        if option == 4:
+        elif option == 4:
             username = set_username()
-        if option == 5:
+        elif option == 5:
             print("Thank you for using our tour application!")
             exit(0)
         else:

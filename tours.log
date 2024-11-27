@@ -612,3 +612,82 @@ cassandra.cluster.NoHostAvailable: ('Unable to connect to any servers', {'127.0.
 2024-11-26 17:59:58,494 [INFO] root: Connecting to Dgraph
 2024-11-26 17:59:58,516 [INFO] root: Setting schema in Dgraph
 2024-11-26 18:00:06,025 [INFO] root: Username set to xtreme_warrior
+2024-11-26 18:11:58,906 [WARNING] cassandra.cluster: Host 127.0.0.1:9042 has been marked down
+2024-11-26 18:11:58,968 [WARNING] cassandra.cluster: [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/cluster.py", line 3577, in _reconnect_internal
+    return self._try_connect(host)
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/cluster.py", line 3599, in _try_connect
+    connection = self._cluster.connection_factory(host.endpoint, is_control_connection=True)
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/cluster.py", line 1670, in connection_factory
+    return self.connection_class.factory(endpoint, self.connect_timeout, *args, **kwargs)
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/connection.py", line 846, in factory
+    conn = cls(endpoint, *args, **kwargs)
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "/Users/supu96/Desktop/bdnr_o2024/ProyectoNSQL/ProyectoNSQL/venv/lib/python3.9/site-packages/cassandra/connection.py", line 951, in _connect_socket
+    raise socket.error(sockerr.errno, "Tried connecting to %s. Last error: %s" %
+ConnectionRefusedError: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:12:00,019 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.96 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:12:02,088 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.16 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:12:06,308 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 6.88 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:12:13,313 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.96 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:12:30,313 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 35.52 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:13:05,868 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 62.72 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:14:08,766 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 139.52 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:16:28,454 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 235.52 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:20:24,040 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 512.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:28:56,130 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 582.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:38:38,228 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:48:38,357 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 18:58:38,536 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:08:38,584 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 546.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:17:44,646 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 546.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:26:50,762 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 564.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:36:14,806 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:46:14,907 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 570.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 19:55:45,021 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:05:45,186 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 582.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:15:27,270 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:25:27,383 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 582.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:35:09,600 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 600.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:45:09,839 [WARNING] cassandra.pool: Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 552.0 seconds: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+2024-11-26 20:54:37,546 [INFO] root: Connecting to Cluster
+2024-11-26 20:54:37,553 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-26 20:54:37,568 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 20:54:37,586 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 20:54:37,640 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '127.0.0.1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-26 20:54:37,640 [INFO] cassandra.cluster: Cassandra host ::1:9042 removed
+2024-11-26 20:54:38,032 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-26 20:54:38,074 [INFO] root: Creating model schema
+2024-11-26 20:54:38,084 [INFO] root: Connecting to Dgraph
+2024-11-26 20:54:38,101 [INFO] root: Setting schema in Dgraph
+2024-11-26 20:54:54,647 [INFO] root: Username set to xtreme_warrior
+2024-11-26 20:56:38,502 [INFO] root: Connecting to Cluster
+2024-11-26 20:56:38,513 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-26 20:56:38,536 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 20:56:38,551 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 20:56:38,604 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '::1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-26 20:56:38,605 [INFO] cassandra.cluster: Cassandra host 127.0.0.1:9042 removed
+2024-11-26 20:56:38,833 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-26 20:56:38,855 [INFO] root: Creating model schema
+2024-11-26 20:56:38,865 [INFO] root: Connecting to Dgraph
+2024-11-26 20:56:38,886 [INFO] root: Setting schema in Dgraph
+2024-11-26 20:56:56,606 [INFO] root: Username set to xtreme_warrior
+2024-11-26 20:56:58,939 [INFO] root: Loading data from CSV file
+2024-11-26 20:56:59,286 [INFO] root: Data loaded successfully
+2024-11-26 20:57:23,375 [INFO] root: Retrieving xtreme_warrior previous tours history
+2024-11-26 21:02:18,049 [INFO] root: Retrieving xtreme_warrior previous tours history
+2024-11-26 21:02:34,942 [INFO] root: Username set to cyber_z
+2024-11-26 21:03:18,799 [INFO] root: Retrieving cyber_z previous tours history
+2024-11-26 21:04:03,529 [INFO] root: Connecting to Cluster
+2024-11-26 21:04:03,536 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-26 21:04:03,554 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 21:04:03,564 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-26 21:04:03,605 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '::1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-26 21:04:03,606 [INFO] cassandra.cluster: Cassandra host 127.0.0.1:9042 removed
+2024-11-26 21:04:03,786 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-26 21:04:03,806 [INFO] root: Creating model schema
+2024-11-26 21:04:03,813 [INFO] root: Connecting to Dgraph
+2024-11-26 21:04:03,828 [INFO] root: Setting schema in Dgraph
+2024-11-26 21:04:03,860 [INFO] root: Username set to 
