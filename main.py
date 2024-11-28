@@ -198,6 +198,17 @@ def get_tours_by_location(location: str=None):
     else:
         print(f"Error: {response}")
 
+def Tours_general_info():
+    suffix = "/tours/T/general_info"
+    endpoint = TOURS_API_URL + suffix
+    response = requests.get(endpoint)
+    if response.ok:
+        json_resp = response.json()
+        for tour in json_resp:
+            print_objects(tour)
+    else:
+        print(f"Error: {response}")
+
 #--------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------
@@ -247,6 +258,7 @@ def print_menu():
 
 def print_tours_menu():
     thm_options = {
+        0: "Tours general info",                        #Mongo
         1: "All",                                       #Mongo
         2: "Date Range (Start and End date)",           #Mongo
         3: "Days duration",                             #Cassandra
@@ -319,6 +331,9 @@ def main():
         elif option == 4:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
+            if tour_option == 0:
+                Tours_general_info()                             #Mongo
+
             if tour_option == 1:
                 list_tours()                             #Mongo
             #
