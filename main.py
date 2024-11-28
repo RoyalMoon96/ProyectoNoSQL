@@ -32,6 +32,24 @@ def insert_data_cassandra(session):
         # Convert date columns to datetime objects
         df["start_date"] = pd.to_datetime(df["start_date"])
         df["end_date"] = pd.to_datetime(df["end_date"])
+
+        insert_users_info = session.prepare("""
+            INSERT INTO users 
+            (username, age, state, real_name, email)
+            VALUES (?, ?, ?, ?, ?)
+        """)
+        
+        for _, row in df.iterrows():
+            # Insert into users_history
+            session.execute(insert_users_info, (
+                row['username'],
+                int(row['age']),
+                row['state'],
+                row['real_name'],
+                row['email']
+            ))
+            
+        ################################
         
         insert_users_history = session.prepare("""
             INSERT INTO users_history 
@@ -55,6 +73,26 @@ def insert_data_cassandra(session):
                 row['state'],
                 row['real_name'],
                 row['email']
+            ))
+
+        ################################
+
+        insert_tours_duration = session.prepare("""
+            INSERT INTO tours_duration 
+            (tour_name, location, duration_days, price_per_person, start_date, 
+            max_participants, end_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """)
+        for _, row in df.iterrows():
+            # Insert into tours_duration
+            session.execute(insert_tours_duration, (
+                row['tour_name'],
+                row['location'],
+                int(row['duration_days']),
+                float(row['price_per_person']),
+                row['start_date'],
+                int(row['max_participants']),
+                row['end_date']
             ))
             
         log.info("Data loaded successfully")
@@ -197,10 +235,11 @@ def print_menu():
     mm_options = {
         0: "Insert Data",
         1: "Show users ",        #Mongo
-        2: "Show tours history",    #Cassandra
-        3: "Show tours",            #Mongo, Dgraph
-        4: "Change username",
-        5: "Exit",
+        2: "Show user info",    #Cassandra
+        3: "Show tours history",    #Cassandra
+        4: "Show tours",            #Mongo, Dgraph
+        5: "Change username",
+        6: "Exit",
     }
     for key in mm_options.keys():
         print(key, '--', mm_options[key])
@@ -210,11 +249,12 @@ def print_tours_menu():
     thm_options = {
         1: "All",                                       #Mongo
         2: "Date Range (Start and End date)",           #Mongo
-        3: "Price per person",                          #Mongo
-        4: "Locations",                                 #Mongo
-        5: "Similar tours to (needs a name)",           #Dgraph
-        6: "Contracted by friends",                     #Dgraph
-        7: "Followers and Followings of friends",       #Dgraph
+        3: "Days duration",                             #Cassandra
+        4: "Price per person",                          #Mongo
+        5: "Locations",                                 #Mongo
+        6: "Similar tours to (needs a name)",           #Dgraph
+        7: "Contracted by friends",                     #Dgraph
+        8: "Followers and Followings of friends",       #Dgraph
     }
     for key in thm_options.keys():
         print('    ', key, '--', thm_options[key])
@@ -273,8 +313,10 @@ def main():
                 skip = int(input("skip value: "))
             user_info_mongo(limit, skip)                                                 #Mongo
         elif option == 2:
-            modelCasandra.get_user_history(session, username)                   #Cassandra
+            modelCasandra.get_user_info(session, username)                   #Cassandra
         elif option == 3:
+            modelCasandra.get_user_history(session, username)                   #Cassandra
+        elif option == 4:
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
             if tour_option == 1:
@@ -287,28 +329,33 @@ def main():
                 list_tours(S_date_from, S_date_to)                             #Mongo
             #
             if tour_option == 3:
+                print("Enter the wished duration in days")
+                duration= input('Duration: ')
+                modelCasandra.list_tours_duration(session, duration)            #Cassandra
+            #
+            if tour_option == 4:
                 min_price = float(input("Enter minimum price per person: "))
                 max_price = float(input("Enter maximum price per person: "))
                 get_tours_by_price_range(min_price, max_price)                  #Mongo
             #
-            if tour_option == 4:
+            if tour_option == 5:
                 print('Some available locations: "Paris", "New York", "Tokyo", "Sydney", "Rome", "London", "Barcelona"...')
                 location = input("Enter location name: ").lower()
                 get_tours_by_location(location)                                 #Mongo
             #
-            if tour_option == 5:
+            if tour_option == 6:
                 tour_name = input("Enter tour name to find similar tours: ")
                 modelDgraph.similar_tours(client, tour_name)                            #Dgraph
             
-            elif tour_option == 6:
+            elif tour_option == 7:
                 modelDgraph.friend_tours(client, username)       
                 
-            if tour_option == 7:
+            if tour_option == 8:
                 modelDgraph.follows(client, username)                                   #Dgraph
 
-        elif option == 4:
-            username = set_username()
         elif option == 5:
+            username = set_username()
+        elif option == 6:
             print("Thank you for using our tour application!")
             exit(0)
         else:

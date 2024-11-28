@@ -1035,3 +1035,130 @@ ConnectionRefusedError: [Errno 61] Tried connecting to [('127.0.0.1', 9042)]. La
 2024-11-27 07:30:56,777 [INFO] root: Data loaded successfully
 2024-11-27 07:31:49,217 [INFO] root: Retrieving xtreme_warrior previous tours history
 2024-11-27 07:36:34,952 [INFO] root: Username set to mighty_zero
+2024-11-28 16:04:03,243 [INFO] root: Connecting to Cluster
+2024-11-28 16:04:03,246 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:04:03,285 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:04:03,401 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:04:03,602 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '::1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:04:03,602 [INFO] cassandra.cluster: Cassandra host 127.0.0.1:9042 removed
+2024-11-28 16:04:04,825 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:04:05,010 [INFO] root: Creating model schema
+2024-11-28 16:04:06,382 [INFO] root: Connecting to Dgraph
+2024-11-28 16:04:06,474 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:04:15,792 [INFO] root: Username set to xtreme_warrior
+2024-11-28 16:06:12,377 [INFO] root: Loading data from CSV file
+2024-11-28 16:06:12,420 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: ef495a65c59d7d29da7ddb812aa0e3df
+2024-11-28 16:06:12,856 [INFO] root: Data loaded successfully
+2024-11-28 16:08:23,497 [INFO] root: Retrieving xtreme_warrior info
+2024-11-28 16:08:23,504 [ERROR] cassandra.cluster: Error preparing query:
+Traceback (most recent call last):
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 3128, in prepare
+    response = future.result().one()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 4956, in result
+    raise self._final_exception
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Undefined column name tour_name in table tours.users"
+2024-11-28 16:08:23,524 [ERROR] root: Error retrieving user info: Error from server: code=2200 [Invalid query] message="Undefined column name tour_name in table tours.users"
+2024-11-28 16:09:45,573 [INFO] root: Connecting to Cluster
+2024-11-28 16:09:45,577 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:09:45,597 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:09:45,722 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for ::1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:09:45,882 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '::1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:09:45,883 [INFO] cassandra.cluster: Cassandra host 127.0.0.1:9042 removed
+2024-11-28 16:09:47,103 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:09:47,133 [INFO] root: Creating model schema
+2024-11-28 16:09:47,177 [INFO] root: Connecting to Dgraph
+2024-11-28 16:09:47,183 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:09:54,528 [INFO] root: Username set to xtreme_warrior
+2024-11-28 16:10:06,753 [INFO] root: Retrieving xtreme_warrior info
+2024-11-28 16:10:06,764 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: c54810d943c84edb5ff97f252e807b21
+2024-11-28 16:10:06,779 [ERROR] root: Error retrieving user info: 'Row' object has no attribute 'username'
+2024-11-28 16:10:42,697 [INFO] root: Retrieving xtreme_warrior previous tours history
+2024-11-28 16:17:53,331 [INFO] root: Connecting to Cluster
+2024-11-28 16:17:53,335 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:17:53,365 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:17:53,479 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:17:53,691 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '127.0.0.1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:17:53,691 [INFO] cassandra.cluster: Cassandra host ::1:9042 removed
+2024-11-28 16:17:54,886 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:17:55,073 [INFO] root: Creating model schema
+2024-11-28 16:17:56,603 [INFO] root: Connecting to Dgraph
+2024-11-28 16:17:56,705 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:18:02,435 [INFO] root: Username set to xtreme_warrior
+2024-11-28 16:19:59,581 [INFO] root: Loading data from CSV file
+2024-11-28 16:19:59,636 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: ef495a65c59d7d29da7ddb812aa0e3df
+2024-11-28 16:20:00,072 [INFO] root: Data loaded successfully
+2024-11-28 16:20:21,430 [INFO] root: Retrieving xtreme_warrior info
+2024-11-28 16:20:21,462 [ERROR] root: Error retrieving user info: 'Row' object has no attribute 'username'
+2024-11-28 16:21:05,717 [INFO] root: Retrieving xtreme_warrior previous tours history
+2024-11-28 16:34:16,442 [INFO] root: Connecting to Cluster
+2024-11-28 16:34:16,446 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:34:16,472 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:34:16,591 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:34:16,787 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '127.0.0.1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:34:16,787 [INFO] cassandra.cluster: Cassandra host ::1:9042 removed
+2024-11-28 16:34:18,009 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:34:18,194 [INFO] root: Creating model schema
+2024-11-28 16:34:19,475 [INFO] root: Connecting to Dgraph
+2024-11-28 16:34:19,552 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:34:40,773 [INFO] root: Username set to cool_elite
+2024-11-28 16:36:39,119 [INFO] root: Loading data from CSV file
+2024-11-28 16:36:39,160 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: ef495a65c59d7d29da7ddb812aa0e3df
+2024-11-28 16:36:39,596 [INFO] root: Data loaded successfully
+2024-11-28 16:36:50,740 [INFO] root: Retrieving cool_elite info
+2024-11-28 16:36:50,754 [ERROR] cassandra.cluster: Error preparing query:
+Traceback (most recent call last):
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 3128, in prepare
+    response = future.result().one()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 4956, in result
+    raise self._final_exception
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Undefined column name start_date in table tours.users"
+2024-11-28 16:36:50,756 [ERROR] root: Error retrieving user info: Error from server: code=2200 [Invalid query] message="Undefined column name start_date in table tours.users"
+2024-11-28 16:38:26,757 [INFO] root: Retrieving cool_elite previous tours history
+2024-11-28 16:38:37,341 [INFO] root: Retrieving tours with 3 days duration
+2024-11-28 16:38:37,359 [ERROR] cassandra.cluster: Error preparing query:
+Traceback (most recent call last):
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 3128, in prepare
+    response = future.result().one()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\cassandra\cluster.py", line 4956, in result
+    raise self._final_exception
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="ORDER BY is only supported when the partition key is restricted by an EQ or an IN."
+2024-11-28 16:38:37,359 [ERROR] root: Error retrieving tours: Error from server: code=2200 [Invalid query] message="ORDER BY is only supported when the partition key is restricted by an EQ or an IN."
+2024-11-28 16:42:59,807 [INFO] root: Connecting to Cluster
+2024-11-28 16:42:59,810 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:42:59,838 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:42:59,959 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:43:00,138 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '127.0.0.1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:43:00,138 [INFO] cassandra.cluster: Cassandra host ::1:9042 removed
+2024-11-28 16:43:01,365 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:43:01,568 [INFO] root: Creating model schema
+2024-11-28 16:43:02,847 [INFO] root: Connecting to Dgraph
+2024-11-28 16:43:02,854 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:43:11,963 [INFO] root: Username set to thunder_elite
+2024-11-28 16:45:08,431 [INFO] root: Loading data from CSV file
+2024-11-28 16:45:08,456 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: ef495a65c59d7d29da7ddb812aa0e3df
+2024-11-28 16:45:08,891 [INFO] root: Data loaded successfully
+2024-11-28 16:45:52,985 [INFO] root: Retrieving thunder_elite info
+2024-11-28 16:46:04,893 [INFO] root: Retrieving thunder_elite previous tours history
+2024-11-28 16:46:16,622 [INFO] root: Retrieving tours with 3 days duration
+2024-11-28 16:46:26,254 [INFO] root: Retrieving tours with 5 days duration
+2024-11-28 16:46:54,092 [INFO] root: Retrieving tours with 4 days duration
+2024-11-28 16:47:23,320 [INFO] root: Retrieving tours with 7 days duration
+2024-11-28 16:55:36,014 [INFO] root: Connecting to Cluster
+2024-11-28 16:55:36,018 [WARNING] cassandra.cluster: Cluster.__init__ called with contact_points specified, but no load_balancing_policy. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['localhost'], lbp = None)
+2024-11-28 16:55:36,045 [WARNING] cassandra.cluster: Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:55:36,157 [WARNING] cassandra.cluster: Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+2024-11-28 16:55:36,351 [INFO] cassandra.policies: Using datacenter 'datacenter1' for DCAwareRoundRobinPolicy (via host '127.0.0.1:9042'); if incorrect, please specify a local_dc to the constructor, or limit contact points to local cluster nodes
+2024-11-28 16:55:36,351 [INFO] cassandra.cluster: Cassandra host ::1:9042 removed
+2024-11-28 16:55:37,530 [INFO] root: Creating keyspace: tours with replication factor 1
+2024-11-28 16:55:37,700 [INFO] root: Creating model schema
+2024-11-28 16:55:39,325 [INFO] root: Connecting to Dgraph
+2024-11-28 16:55:39,335 [INFO] root: Setting schema in Dgraph
+2024-11-28 16:56:00,230 [INFO] root: Username set to thunder_elite
+2024-11-28 16:57:56,435 [INFO] root: Loading data from CSV file
+2024-11-28 16:57:56,458 [WARNING] cassandra.protocol: Server warning: `USE <keyspace>` with prepared statements is considered to be an anti-pattern due to ambiguity in non-qualified table names. Please consider removing instances of `Session#setKeyspace(<keyspace>)`, `Session#execute("USE <keyspace>")` and `cluster.newSession(<keyspace>)` from your code, and always use fully qualified table names (e.g. <keyspace>.<table>). Keyspace used: tours, statement keyspace: tours, statement id: b67c9ca08a92c6c508481a3e3bb93173
+2024-11-28 16:57:57,794 [INFO] root: Data loaded successfully
+2024-11-28 16:58:12,285 [INFO] root: Retrieving thunder_elite info
+2024-11-28 16:58:29,877 [INFO] root: Retrieving tours with 5 days duration
