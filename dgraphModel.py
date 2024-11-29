@@ -16,10 +16,10 @@ def set_schema(client):
     }
 
     username: string @index(exact) .
-    real_name: string @index(fulltext) .
-    email: string @index(hash) .
+    real_name: string .
+    email: string .
     age: int .
-    state: string @index(term) .
+    state: string .
     friends: [uid] @reverse .
     tours: [uid] .
 
