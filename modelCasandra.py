@@ -22,6 +22,7 @@ CREATE_TABLE_USERS = """
     )
 """
 
+
 CREATE_TABLE_USERS_HISTORY = """
     CREATE TABLE IF NOT EXISTS users_history (
         tour_name TEXT,
@@ -122,6 +123,7 @@ def get_user_info(session, username):
 def get_user_history(session, username):
     log.info(f"Retrieving {username} previous tours history")
     try:
+
         prepared_stmt = session.prepare(SELECT_USER_HISTORY)
         rows = session.execute(prepared_stmt, [username])
         

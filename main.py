@@ -329,6 +329,7 @@ def main():
         elif option == 3:
             modelCasandra.get_user_history(session, username)                   #Cassandra
         elif option == 4:
+
             print_tours_menu()
             tour_option = int(input('Enter your tours view choice: '))
             if tour_option == 0:
