@@ -1,6 +1,6 @@
-# iteso-bdnr-mongodb
+# proyect NoSQL 
 
-A place to share mongodb app code
+cassandra, mongodb and dgraph
 
 ### Setup a python virtual env with python mongodb installed
 ```
