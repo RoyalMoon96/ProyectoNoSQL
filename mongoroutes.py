@@ -62,6 +62,11 @@ def list_tours(request: Request, start_date_From: str=None, start_date_To: str=N
 
     tours = list(request.app.database["tours"].find(req))
     return tours
+@router.get("/T/general_info", response_description="Get general info")
+def general_info_tours(request: Request):
+    req=[{"$group": {"_id": "$tour_name", "totalQuantity": { "$sum": 1 }, "average_price_per_person": { "$avg": "$price_per_person" }, "average_max_participants": { "$avg": "$max_participants" } }}]
+    tours_info = list(request.app.database["tours"].aggregate(req))
+    return tours_info
 
 @router.get("/T/{id}", response_description="Get a single tour by id", response_model=Tour)
 def find_tour(id: str, request: Request):
